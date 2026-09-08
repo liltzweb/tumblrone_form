@@ -3,40 +3,70 @@ window.FORM_CONFIG = {
   "repo": "tumblrone_form",
   "product": "tumblrone",
   "sourceForm": "tumblrone.html",
-  "context": "Tumblr favorites & mensiversary",
+  "context": "tumblr blog dashboard interactive mensiversary archive",
   "motif": "t",
-  "media": "7 foto",
+  "media": "5 foto tumblr aesthetics + 1 file musik MP3",
   "theme": "tumblr",
+  "palette": [
+    "#001935",
+    "#36465D",
+    "#529ECC",
+    "#F5F5F5",
+    "#FFFFFF",
+    "#FF492F"
+  ],
+  "price": 15000,
   "sections": [
     {
       "id": "02",
-      "title": "blog identity & avatars",
+      "title": "couple & tumblr handle identity",
       "fields": [
         {
           "key": "sender_name",
-          "label": "nama tampilan pengirim",
-          "placeholder": "isi nama tampilan pengirim sesuai pesanan",
+          "label": "nama kamu (pengirim)",
+          "placeholder": "default: Keith.",
           "long": false,
           "required": false
         },
         {
           "key": "sender_handle",
-          "label": "handle blog pengirim",
-          "placeholder": "isi handle blog pengirim sesuai pesanan",
+          "label": "username / handle kamu",
+          "placeholder": "default: @keonho",
           "long": false,
           "required": false
         },
         {
-          "key": "partner_name",
-          "label": "nama tampilan pasangan",
-          "placeholder": "isi nama tampilan pasangan sesuai pesanan",
+          "key": "recipient_name",
+          "label": "nama pasangan (yang menerima)",
+          "placeholder": "default: keisha!",
           "long": false,
           "required": false
         },
         {
-          "key": "partner_handle",
-          "label": "handle blog pasangan",
-          "placeholder": "isi handle blog pasangan sesuai pesanan",
+          "key": "recipient_handle",
+          "label": "username / handle pasangan",
+          "placeholder": "default: @kya",
+          "long": false,
+          "required": false
+        },
+        {
+          "key": "date_formatted",
+          "label": "tanggal perayaan lengkap",
+          "placeholder": "default: September 1, 2026",
+          "long": false,
+          "required": false
+        },
+        {
+          "key": "date_code",
+          "label": "kode tanggal tumblr",
+          "placeholder": "default: 01 / 09 / 26",
+          "long": false,
+          "required": false
+        },
+        {
+          "key": "months_count",
+          "label": "jumlah bulan milestone",
+          "placeholder": "default: 3",
           "long": false,
           "required": false
         }
@@ -44,60 +74,74 @@ window.FORM_CONFIG = {
     },
     {
       "id": "03",
-      "title": "post 01 — masterpost cover",
+      "title": "scene 01 — tumblr masterpost (entry)",
       "fields": [
         {
-          "key": "p1_quote",
-          "label": "kutipan pembuka masterpost",
-          "placeholder": "isi kutipan pembuka masterpost sesuai pesanan",
-          "long": true,
+          "key": "entry_title",
+          "label": "judul masterpost",
+          "placeholder": "default: KEITH'S FAVORITES",
+          "long": false,
           "required": false
         },
         {
-          "key": "p1_caption",
-          "label": "caption foto post 01 (photo-entry.jpg)",
-          "placeholder": "isi caption foto post 01 (photo-entry.jpg) sesuai pesanan",
+          "key": "entry_subtitle",
+          "label": "sub-judul masterpost",
+          "placeholder": "default: a ridiculously biased list.",
           "long": false,
+          "required": false
+        },
+        {
+          "key": "entry_badge",
+          "label": "badge atas masterpost",
+          "placeholder": "default: private archive, for your eyes only",
+          "long": false,
+          "required": false
+        },
+        {
+          "key": "entry_photo_cap",
+          "label": "caption foto masterpost (photo-entry)",
+          "placeholder": "default: the face that started it all, still my favorite view",
+          "long": true,
           "required": false
         }
       ]
     },
     {
       "id": "04",
-      "title": "post 02 — the favorites list",
+      "title": "scene 02 — tumblr list (the 4 evidence items)",
       "fields": [
         {
-          "key": "fav_item1",
-          "label": "item favorit 1",
-          "placeholder": "isi item favorit 1 sesuai pesanan",
-          "long": false,
+          "key": "list_item1",
+          "label": "list 01 · prompt → reveal quote",
+          "placeholder": "default: person i text the second i wake up → you, obviously.",
+          "long": true,
           "required": false
         },
         {
-          "key": "fav_item2",
-          "label": "item favorit 2",
-          "placeholder": "isi item favorit 2 sesuai pesanan",
-          "long": false,
+          "key": "list_item2",
+          "label": "list 02 · prompt → reveal quote",
+          "placeholder": "default: person whose food i let steal mine → still you.",
+          "long": true,
           "required": false
         },
         {
-          "key": "fav_item3",
-          "label": "item favorit 3",
-          "placeholder": "isi item favorit 3 sesuai pesanan",
-          "long": false,
+          "key": "list_item3",
+          "label": "list 03 · prompt → reveal quote",
+          "placeholder": "default: person i miss even when you just left → you already knew that.",
+          "long": true,
           "required": false
         },
         {
-          "key": "fav_item4",
-          "label": "item favorit 4 (pilihan utama)",
-          "placeholder": "isi item favorit 4 (pilihan utama) sesuai pesanan",
-          "long": false,
+          "key": "list_item4",
+          "label": "list 04 · prompt → reveal quote",
+          "placeholder": "default: person i'd choose over and over again → keisha!!!",
+          "long": true,
           "required": false
         },
         {
-          "key": "p2_caption",
-          "label": "caption foto post 02 (photo-list.jpg)",
-          "placeholder": "isi caption foto post 02 (photo-list.jpg) sesuai pesanan",
+          "key": "list_photo_cap",
+          "label": "caption foto list scene",
+          "placeholder": "default: eating pizza and looking this cute should actually be illegal",
           "long": false,
           "required": false
         }
@@ -105,121 +149,91 @@ window.FORM_CONFIG = {
     },
     {
       "id": "05",
-      "title": "post 03 — tumblr poll & reveal",
+      "title": "scene 03 — tumblr poll (interactive question)",
       "fields": [
         {
           "key": "poll_question",
-          "label": "pertanyaan polling",
-          "placeholder": "isi pertanyaan polling sesuai pesanan",
+          "label": "pertanyaan poll",
+          "placeholder": "default: why is keisha literally the best thing that ever happened to me?",
           "long": false,
           "required": false
         },
         {
           "key": "poll_opt1",
-          "label": "opsi polling 1",
-          "placeholder": "isi opsi polling 1 sesuai pesanan",
-          "long": false,
+          "label": "opsi 1 (percentage & response)",
+          "placeholder": "default: her smile that fixes literally every bad day (99.8%)",
+          "long": true,
           "required": false
         },
         {
           "key": "poll_opt2",
-          "label": "opsi polling 2",
-          "placeholder": "isi opsi polling 2 sesuai pesanan",
-          "long": false,
+          "label": "opsi 2 (percentage & response)",
+          "placeholder": "default: how cute she looks when she gets excited about food (100%)",
+          "long": true,
           "required": false
         },
         {
           "key": "poll_opt3",
-          "label": "opsi polling 3",
-          "placeholder": "isi opsi polling 3 sesuai pesanan",
-          "long": false,
-          "required": false
-        },
-        {
-          "key": "p3_caption",
-          "label": "caption foto post 03 (photo-01.jpg)",
-          "placeholder": "isi caption foto post 03 (photo-01.jpg) sesuai pesanan",
-          "long": false,
+          "label": "opsi 3 (percentage & response)",
+          "placeholder": "default: all of the above and it's not even close (100%)",
+          "long": true,
           "required": false
         }
       ]
     },
     {
       "id": "06",
-      "title": "post 04 — milestone counter stepper",
+      "title": "scene 04 — milestone counter & timeline photos",
       "fields": [
         {
-          "key": "milestone_title",
-          "label": "judul milestone",
-          "placeholder": "isi judul milestone sesuai pesanan",
+          "key": "counter_unit",
+          "label": "label satuan counter",
+          "placeholder": "default: months of being obsessed with you",
           "long": false,
           "required": false
         },
         {
-          "key": "month1_note",
-          "label": "catatan bulan 1",
-          "placeholder": "isi catatan bulan 1 sesuai pesanan",
-          "long": false,
+          "key": "step1_microcopy",
+          "label": "catatan month 01",
+          "placeholder": "default: the month everything clicked and i stopped pretending i wasn't falling.",
+          "long": true,
           "required": false
         },
         {
-          "key": "month2_note",
-          "label": "catatan bulan 2",
-          "placeholder": "isi catatan bulan 2 sesuai pesanan",
-          "long": false,
+          "key": "step2_microcopy",
+          "label": "catatan month 02",
+          "placeholder": "default: the month i realized you're officially my favorite part of every day.",
+          "long": true,
           "required": false
         },
         {
-          "key": "month3_note",
-          "label": "catatan bulan 3",
-          "placeholder": "isi catatan bulan 3 sesuai pesanan",
-          "long": false,
-          "required": false
-        },
-        {
-          "key": "p4_caption",
-          "label": "caption foto post 04 (photo-02.jpg)",
-          "placeholder": "isi caption foto post 04 (photo-02.jpg) sesuai pesanan",
-          "long": false,
+          "key": "step3_microcopy",
+          "label": "catatan month 03",
+          "placeholder": "default: right now. three whole months and i still get butterflies.",
+          "long": true,
           "required": false
         }
       ]
     },
     {
       "id": "07",
-      "title": "post 05 — verified final love letter",
+      "title": "scene 05 — tumblr text post (final resolution)",
       "fields": [
         {
-          "key": "final_title",
-          "label": "badge status post 05",
-          "placeholder": "isi badge status post 05 sesuai pesanan",
-          "long": false,
-          "required": false
-        },
-        {
-          "key": "final_letter",
-          "label": "surat cinta tulus penutup",
-          "placeholder": "isi surat cinta tulus penutup sesuai pesanan",
+          "key": "final_quote",
+          "label": "kutipan cinta resolusi tumblr",
+          "placeholder": "default: loving you is the easiest thing i have ever done in my entire life.",
           "long": true,
           "required": false
         },
         {
-          "key": "p5_caption",
-          "label": "caption foto post 05 (photo-final.jpg)",
-          "placeholder": "isi caption foto post 05 (photo-final.jpg) sesuai pesanan",
+          "key": "final_tags",
+          "label": "tumblr tags (#tags)",
+          "placeholder": "default: #keisha #3months #myfavoriteperson #forevercoded",
           "long": false,
           "required": false
         }
       ]
     }
-  ],
-  "palette": [
-    "#001935",
-    "#142D4C",
-    "#FFFFFF",
-    "#8D9AA8",
-    "#529ECC",
-    "#FF4964"
-  ],
-  "price": 10000
+  ]
 };
