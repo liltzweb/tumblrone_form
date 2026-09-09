@@ -1,518 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tumblrone ‧ order form</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --cream:#FFF7ED;
-    --ink:#18181B;
-    --stone:#52525B;
-    --faded:#8A92A0;
-    --thread:#E28C96;
-    --accent:#8C4A50;
-    --powder:#FFE4F0;
-    --paper:#FFFFFF;
-    --line: rgba(24,24,27,0.14);
-    --radius: 14px;
-  }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(circle at 12% 8%, #E28C961f, transparent 40%),
-      radial-gradient(circle at 90% 15%, #8C4A5026, transparent 45%),
-      var(--cream);
-    color:var(--ink);
-    font-family:'Karla', sans-serif;
-    line-height:1.5;
-    padding-bottom:80px;
-  }
-  a{color:inherit;}
-
-  .ticket{max-width:640px; margin:36px auto 8px; padding:0 20px;}
-  .ticket-inner{
-    background:var(--paper); border-radius:var(--radius);
-    box-shadow:0 1px 2px rgba(24,24,27,0.06), 0 10px 30px rgba(24,24,27,0.08);
-    padding:34px 30px 26px; position:relative; overflow:hidden; border:1px solid var(--line);
-  }
-  .ticket-inner::before{
-    content:""; position:absolute; inset:0;
-    background:repeating-linear-gradient(90deg, transparent 0 6px, rgba(24,24,27,0.04) 6px 7px);
-    opacity:.5; pointer-events:none;
-  }
-  .stub-row{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;}
-  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--thread); margin:0 0 6px;}
-  h1.title{font-family:'Fraunces', serif; font-weight:500; font-size:30px; margin:0; letter-spacing:-0.01em; line-height:1.2;}
-  h1.title em{font-style:italic; color:var(--thread); font-weight:500;}
-  .price-tag{text-align:right; font-family:'JetBrains Mono', monospace; flex-shrink:0;}
-  .price-tag .label{font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--stone);}
-  .price-tag .amount{font-size:22px; font-weight:600; color:var(--ink);}
-  .perforation{height:0; border-top:2px dashed rgba(24,24,27,0.2); margin:24px -30px 0; position:relative;}
-  .perforation::before,.perforation::after{content:""; position:absolute; top:-9px; width:18px; height:18px; border-radius:50%; background:var(--cream);}
-  .perforation::before{left:-9px;} .perforation::after{right:-9px;}
-
-  .wrap{max-width:640px; margin:0 auto; padding:0 20px;}
-  .exhibit{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); margin-top:18px; overflow:hidden;}
-  .exhibit-head{
-    display:flex; align-items:baseline; gap:12px; padding:18px 24px 14px;
-    border-bottom:1px solid var(--line); background:linear-gradient(180deg, #E28C961a, transparent);
-  }
-  .exhibit-num{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--thread); background:#E28C9620; padding:3px 8px; border-radius:20px; letter-spacing:.05em;}
-  .exhibit-title{font-family:'Fraunces', serif; font-size:19px; font-weight:500; margin:0;}
-  .exhibit-note{font-size:12.5px; color:var(--stone); margin:2px 0 0 auto; text-align:right; font-style:italic;}
-  .exhibit-body{padding:20px 24px 24px; display:grid; gap:16px;}
-
-  .field{display:grid; gap:6px;}
-  .field label{font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; color:var(--stone);}
-  .field label .req{color:var(--thread);}
-  .field input[type=text], .field input[type=date], .field textarea{
-    font-family:'Karla', sans-serif; font-size:14.5px; padding:10px 12px; border-radius:9px;
-    border:1px solid var(--line); background:var(--cream); color:var(--ink); width:100%; resize:vertical;
-  }
-  .field input:focus, .field textarea:focus{
-    outline:none; border-color:var(--thread); background:var(--paper);
-    box-shadow:0 0 0 3px #E28C9633;
-  }
-  .field .hint{font-size:11.5px; color:var(--stone); margin-top:-2px;}
-  .default-hint{color:var(--stone); font-size:11.5px; opacity:0.85;}
-
-  .tnc-list{margin:0; padding-left:20px; font-size:13.5px; color:var(--stone); display:grid; gap:8px;}
-  .tnc-list strong{color:var(--ink);}
-
-  .choice-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-  .choice-card{
-    border:1.5px solid var(--line); border-radius:10px; padding:12px 14px;
-    cursor:pointer; display:flex; align-items:center; gap:10px; font-size:13.5px;
-    transition:all .15s; background:var(--cream);
-  }
-  .choice-card:hover{border-color:var(--thread);}
-  .choice-card.selected{border-color:var(--thread); background:var(--powder); font-weight:600; color:var(--thread);}
-  .choice-card input[type=radio]{margin:0; accent-color:var(--thread);}
-
-  .palette-preview{
-    display:grid; grid-template-columns:repeat(6, 1fr); gap:6px;
-    border-radius:10px; overflow:hidden; padding:8px; background:var(--cream); border:1px solid var(--line);
-  }
-  .swatch{aspect-ratio:1/1; border-radius:6px; border:1px solid rgba(0,0,0,0.1); position:relative;}
-  .swatch span{position:absolute; bottom:2px; left:2px; font-size:8px; font-family:'JetBrains Mono', monospace; background:rgba(255,255,255,0.85); padding:1px 3px; border-radius:3px; color:#18181B;}
-
-  .recolor-panel{display:none; margin-top:10px; padding:14px; border:1px solid var(--line); border-radius:10px; background:var(--paper); gap:10px;}
-  .recolor-panel.active{display:grid;}
-  .recolor-row{display:grid; grid-template-columns: auto 1fr 100px; gap:8px; align-items:center; font-size:12px; font-family:'JetBrains Mono', monospace;}
-  .recolor-row input[type=color]{width:36px; height:32px; border:none; border-radius:6px; cursor:pointer; background:none; padding:0;}
-
-  .info-box{padding:14px 16px; border-radius:9px; background:var(--powder); border:1px solid #E28C964d; font-size:13.5px; color:var(--ink); line-height:1.5;}
-
-  .summary-bar{
-    position:sticky; bottom:16px; max-width:640px; margin:28px auto 0; padding:0 20px; z-index:50;
-  }
-  .summary-inner{
-    background:var(--ink); color:#FFFFFF; border-radius:14px; padding:14px 20px;
-    display:flex; justify-content:space-between; align-items:center; gap:16px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1);
-  }
-  .summary-price{font-family:'JetBrains Mono', monospace; font-size:20px; font-weight:600; color:var(--cream);}
-  .summary-btn{
-    background:var(--accent); color:#FFFFFF; border:none; border-radius:9px;
-    padding:11px 22px; font-family:'Karla', sans-serif; font-size:15px; font-weight:700;
-    cursor:pointer; display:flex; align-items:center; gap:8px; transition:transform .15s, opacity .15s;
-  }
-  .summary-btn:hover{transform:translateY(-1px); opacity:.92;}
-
-  .toast{
-    position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
-    background:#18181B; color:#FFFFFF; padding:12px 24px; border-radius:30px;
-    font-size:13.5px; font-family:'Karla', sans-serif; box-shadow:0 8px 24px rgba(0,0,0,0.25);
-    opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:999;
-  }
-  .toast.show{opacity:1;}
-
-  @media(max-width:560px){
-    .stub-row{flex-direction:column; gap:12px;}
-    .price-tag{text-align:left;}
-    .choice-grid{grid-template-columns:1fr;}
-    .summary-inner{flex-direction:column; align-items:stretch;}
-    .summary-btn{justify-content:center;}
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Form pemesanan website custom liltz">
+  <title>Order form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="site-config.js"></script>
 </head>
 <body>
+  <div class="paper-grain" aria-hidden="true"></div>
 
-<div class="ticket">
-  <div class="ticket-inner">
-    <div class="stub-row">
-      <div>
-        <div class="eyebrow">liltz archive order specification</div>
-        <h1 class="title">tumblrone <em>(form)</em></h1>
-        <div style="font-size:13.5px; color:var(--stone); margin-top:4px;">tumblr feed archive & interactive milestone journey</div>
-      </div>
-      <div class="price-tag">
-        <div class="label">total harga</div>
-        <div class="amount" id="topPrice">Rp 10.000</div>
-      </div>
-    </div>
-    <div class="perforation"></div>
-  </div>
-</div>
-
-<form id="orderForm" autocomplete="off">
-<div class="wrap">
-
-  <!-- EXHIBIT T&C -->
-  <div class="exhibit">
-    <div class="exhibit-head">
-      <span class="exhibit-num">T&C</span>
-      <h2 class="exhibit-title">terms & conditions</h2>
-      <span class="exhibit-note">wajib dibaca</span>
-    </div>
-    <div class="exhibit-body">
-      <ol class="tnc-list">
-        <li><strong>Original Codebase:</strong> Website menggunakan arsitektur statis murni yang ultra-ringan, interaktif, dan responsif di semua perangkat (iPhone/Android/Desktop).</li>
-        <li><strong>Standard Turnaround:</strong> Pengerjaan standar memakan waktu <strong>1–2 hari kerja</strong> setelah data teks & foto diterima lengkap.</li>
-        <li><strong>Rush Order Option:</strong> Tersedia opsi <em>kilat / priority (selesai dalam hitungan jam)</em> dengan biaya tambahan <strong>+Rp 4.000</strong>.</li>
-        <li><strong>Recolor Palette Option:</strong> Ubah seluruh skema warna tema website ke palet pilihanmu dengan biaya tambahan <strong>+Rp 2.000</strong>.</li>
-        <li><strong>Free Hosting & Subdomain:</strong> Sudah termasuk hosting seumur hidup gratis dengan subdomain custom di <em>.netlify.app</em>.</li>
-        <li><strong>Privacy Guaranteed:</strong> Semua teks dan foto personal kamu dijamin kerahasiaannya 100%.</li>
-        <li><strong>Final Delivery:</strong> Link website live yang siap dibagikan ke pasangan/crush akan dikirimkan langsung melalui chat Telegram.</li>
-      </ol>
-    </div>
-  </div>
-
-  <!-- EXHIBIT 00: IDENTITY -->
-  <div class="exhibit">
-    <div class="exhibit-head">
-      <span class="exhibit-num">00</span>
-      <h2 class="exhibit-title">customer identity</h2>
-      <span class="exhibit-note">identitas pemesan</span>
-    </div>
-    <div class="exhibit-body">
-      <div class="field">
-        <label>username telegram kamu <span class="req">*</span></label>
-        <input type="text" id="cust_telegram" placeholder="@username_kamu" required>
-        <span class="hint">pastikan akun telegrammu bisa di-chat / tidak di-private</span>
-      </div>
-      <div class="field">
-        <label>nama panggilan pemesan <span class="req">*</span></label>
-        <input type="text" id="cust_name" placeholder="misal: Cattia" required>
-      </div>
-    </div>
-  </div>
-
-  <!-- EXHIBIT 01: COLOR PALETTE -->
-  <div class="exhibit">
-    <div class="exhibit-head">
-      <span class="exhibit-num">01</span>
-      <h2 class="exhibit-title">color palette selection</h2>
-      <span class="exhibit-note">opsi warna</span>
-    </div>
-    <div class="exhibit-body">
-      <div class="choice-grid">
-        <label class="choice-card selected" id="optPaletteDefault">
-          <input type="radio" name="palette_mode" value="default" checked>
-          <div>
-            <div><strong>Default Palette</strong></div>
-            <div style="font-size:12px; color:var(--stone);">warna original template (+Rp 0)</div>
-          </div>
-        </label>
-        <label class="choice-card" id="optPaletteCustom">
-          <input type="radio" name="palette_mode" value="custom">
-          <div>
-            <div><strong>Custom Recolor</strong></div>
-            <div style="font-size:12px; color:var(--stone);">ganti skema warna (+Rp 2.000)</div>
-          </div>
-        </label>
-      </div>
-
-      <div class="field">
-        <label>preview skema warna aktif</label>
-        <div class="palette-preview" id="palettePreview">
-          <!-- dynamic swatches -->
+  <header class="ticket">
+    <div class="ticket-inner">
+      <div class="stub-row">
+        <div>
+          <p class="eyebrow">not a one-time sale · ready-made website</p>
+          <h1 class="title"><span id="productName"></span> <em>form</em> <span id="motif" aria-hidden="true"></span></h1>
+          <p class="context" id="contextText"></p>
         </div>
-        <span class="hint" id="paletteDesc">tumblr midnight, card navy, clean white, post muted, tumblr blue, heart pink</span>
-      </div>
-
-      <div class="recolor-panel" id="recolorPanel">
-        <div style="font-size:12.5px; color:var(--stone); margin-bottom:4px;">pilih 6 warna custom untuk tema websitemu:</div>
-        <div id="recolorRows" style="display:grid; gap:8px;"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DYNAMIC EXHIBITS GENERATED FROM SECTIONS -->
-  <div id="dynamicSectionsMount"></div>
-
-    <!-- EXHIBIT: PHOTO BREAKDOWN -->
-  <div class="exhibit">
-    <div class="exhibit-head">
-      <span class="exhibit-num">PHOTO</span>
-      <h2 class="exhibit-title">photo attachments</h2>
-      <span class="exhibit-note">7 foto</span>
-    </div>
-    <div class="exhibit-body">
-      <div class="info-box">
-        lampirkan 7 foto langsung di chat telegram sesudah submit form:<br><br>• <strong>2 Foto Profil (avatar-keith.jpg, avatar-keisha.jpg)</strong> &rarr; Rasio Square 1:1 untuk avatar akun<br>• <strong>5 Foto Post Feed (photo-entry.jpg, photo-list.jpg, photo-01.jpg, photo-02.jpg, photo-final.jpg)</strong> &rarr; Rasio Portrait 4:5 untuk 5 postingan feed
-      </div>
-      <div class="field">
-        <label>catatan foto (opsional)</label>
-        <input type="text" id="photo_note" placeholder="misal: photo-entry adalah foto tatapan manis, photo-final foto berpelukan">
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- EXHIBIT: CUSTOM SUBDOMAIN LINK -->
-  <div class="exhibit">
-    <div class="exhibit-head">
-      <span class="exhibit-num">LINK</span>
-      <h2 class="exhibit-title">custom website link</h2>
-      <span class="exhibit-note">.netlify.app</span>
-    </div>
-    <div class="exhibit-body">
-      <div class="field">
-        <label>request nama link website <span class="req">*</span></label>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <input type="text" id="custom_link" placeholder="misal: for-my-favorite" style="flex:1;" required>
-          <span style="font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--stone);">.netlify.app</span>
+        <div class="price-tag" aria-live="polite">
+          <span class="label">total</span>
+          <strong class="amount" id="priceOut"></strong>
         </div>
-        <span class="hint">gunakan huruf kecil, angka, atau tanda minus (-).</span>
       </div>
+      <div class="perforation"></div>
     </div>
-  </div>
+  </header>
 
-  <!-- EXHIBIT: PROCESSING SPEED -->
-  <div class="exhibit">
-    <div class="exhibit-head">
-      <span class="exhibit-num">SPEED</span>
-      <h2 class="exhibit-title">processing speed</h2>
-      <span class="exhibit-note">waktu pengerjaan</span>
-    </div>
-    <div class="exhibit-body">
-      <div class="choice-grid">
-        <label class="choice-card selected" id="optSpeedReg">
-          <input type="radio" name="speed_mode" value="regular" checked>
-          <div>
-            <div><strong>Reguler (1–2 Hari)</strong></div>
-            <div style="font-size:12px; color:var(--stone);">proses santai & rapi (+Rp 0)</div>
-          </div>
-        </label>
-        <label class="choice-card" id="optSpeedRush">
-          <input type="radio" name="speed_mode" value="rush">
-          <div>
-            <div><strong>Kilat / Priority (Hitungan Jam)</strong></div>
-            <div style="font-size:12px; color:var(--stone);">langsung dikerjakan (+Rp 4.000)</div>
-          </div>
-        </label>
+  <main class="wrap">
+    <section class="exhibit tnc-card">
+      <div class="exhibit-head">
+        <span class="exhibit-num">t&amp;c</span>
+        <div>
+          <h2 class="exhibit-title">terms &amp; condition</h2>
+          <p class="exhibit-sub">harap dibaca sebelum mengisi form</p>
+        </div>
       </div>
-    </div>
-  </div>
+      <div class="exhibit-body tnc-list">
+        <p><strong>(a.)</strong> please read all terms and conditions carefully before placing an order.</p>
+        <p><strong>(b.)</strong> ready-made websites allow buyers to change names, colors, texts, music, and photos. simple decoration requests cost an additional idr 3,000, while changing the color palette costs an additional idr 2,000. wording supplied by the seller may be used exactly as shown in the catalog at no additional fee. each ready-made design may be sold to more than one buyer and is not exclusive.</p>
+        <p><strong>(c.)</strong> custom websites start from idr 20,000, with the final price depending on complexity. simple revisions are allowed up to 3 times. revisions caused by seller mistakes are free; revisions exceeding 3 times or major revisions may require an additional fee.</p>
+        <p><strong>(d.)</strong> full payment must be made before processing. payment is accepted only through qris, with no additional payment fee.</p>
+        <p><strong>(e.)</strong> processing usually takes 1–7 days after payment, depending on the queue and buyer response. completion within 24 hours before the deadline requires an additional idr 4,000 rush fee.</p>
+        <p><strong>(f.)</strong> no refunds or cancellations are accepted after the website has been sent.</p>
+        <p><strong>(g.)</strong> all designs, codes, and contents belong to catamourie. copying, reselling, redistributing, or claiming them as your own is prohibited. by ordering through @liltz, buyers agree to all terms above.</p>
+      </div>
+    </section>
 
-</div>
-
-<!-- STICKY SUMMARY BOTTOM BAR -->
-<div class="summary-bar">
-  <div class="summary-inner">
-    <div>
-      <div style="font-size:11px; font-family:'JetBrains Mono', monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--faded);">total pembayaran</div>
-      <div class="summary-price" id="bottomPrice">Rp 10.000</div>
-    </div>
-    <button type="submit" class="summary-btn" id="submitBtn">
-      <span>salin & kirim pesanan</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-    </button>
-  </div>
-</div>
-</form>
-
-<div class="toast" id="toastMsg">pesanan berhasil disalin! membuka telegram...</div>
-
-<script>
-(function(){
-  const CATALOG_KEY = "tumblrone";
-  const CATALOG_TITLE = "tumblrone";
-  const BASE_PRICE = 10000;
-  const RECOLOR_FEE = 2000;
-  const RUSH_FEE = 4000;
-  const TELEGRAM_USERNAME = "mirssy";
-
-  const DEFAULT_PALETTE = ["#001935", "#142D4C", "#FFFFFF", "#8D9AA8", "#529ECC", "#FF4964"];
-  let customPalette = [...DEFAULT_PALETTE];
-
-  const SECTIONS = [{"id": "02", "title": "blog identity & avatars", "fields": [{"key": "sender_name", "label": "nama tampilan pengirim", "def": "Keith."}, {"key": "sender_handle", "label": "handle blog pengirim", "def": "@keonho"}, {"key": "partner_name", "label": "nama tampilan pasangan", "def": "keisha!"}, {"key": "partner_handle", "label": "handle blog pasangan", "def": "@kya"}]}, {"id": "03", "title": "post 01 — masterpost cover", "fields": [{"key": "p1_quote", "label": "kutipan pembuka masterpost", "def": "made this whole page because you somehow made my whole world so much softer.", "long": true}, {"key": "p1_caption", "label": "caption foto post 01 (photo-entry.jpg)", "def": "the face that started it all, still my favorite view"}]}, {"id": "04", "title": "post 02 — the favorites list", "fields": [{"key": "fav_item1", "label": "item favorit 1", "def": "how you get shy when i compliment you"}, {"key": "fav_item2", "label": "item favorit 2", "def": "eating pizza on the sofa while watching movies"}, {"key": "fav_item3", "label": "item favorit 3", "def": "the way you squeeze my hand randomly"}, {"key": "fav_item4", "label": "item favorit 4 (pilihan utama)", "def": "person i'd choose over and over again &rarr; keisha!"}, {"key": "p2_caption", "label": "caption foto post 02 (photo-list.jpg)", "def": "eating pizza and looking this cute should actually be illegal"}]}, {"id": "05", "title": "post 03 — tumblr poll & reveal", "fields": [{"key": "poll_question", "label": "pertanyaan polling", "def": "who is literally all i think about lately?"}, {"key": "poll_opt1", "label": "opsi polling 1", "def": "keisha"}, {"key": "poll_opt2", "label": "opsi polling 2", "def": "my pretty girl keisha"}, {"key": "poll_opt3", "label": "opsi polling 3", "def": "all of the above"}, {"key": "p3_caption", "label": "caption foto post 03 (photo-01.jpg)", "def": "the prettiest girl in my camera roll, no competition"}]}, {"id": "06", "title": "post 04 — milestone counter stepper", "fields": [{"key": "milestone_title", "label": "judul milestone", "def": "03 MONTHS WITH YOU"}, {"key": "month1_note", "label": "catatan bulan 1", "def": "where everything started with butterflies and shy glances"}, {"key": "month2_note", "label": "catatan bulan 2", "def": "getting used to hearing your voice every single night"}, {"key": "month3_note", "label": "catatan bulan 3", "def": "realizing this is easily the happiest i've ever been"}, {"key": "p4_caption", "label": "caption foto post 04 (photo-02.jpg)", "def": "three months of late night dates and i still get butterflies"}]}, {"id": "07", "title": "post 05 — verified final love letter", "fields": [{"key": "final_title", "label": "badge status post 05", "def": "VERIFIED TRUTH &rarr; keisha!"}, {"key": "final_letter", "label": "surat cinta tulus penutup", "def": "thank you for these wonderful months, for being my greatest comfort, and for loving me the way you do. i promise to keep choosing you, laughing with you, and holding your hand through every chapter ahead.", "long": true}, {"key": "p5_caption", "label": "caption foto post 05 (photo-final.jpg)", "def": "always running straight into my arms, forever my favorite person"}]}];
-
-  // Mount dynamic exhibits
-  const mount = document.getElementById('dynamicSectionsMount');
-  let dynamicHtml = '';
-  SECTIONS.forEach(sec => {
-    dynamicHtml += `
-      <div class="exhibit">
+    <form id="orderForm" novalidate>
+      <section class="exhibit">
         <div class="exhibit-head">
-          <span class="exhibit-num">${sec.id}</span>
-          <h2 class="exhibit-title">${sec.title}</h2>
-          <span class="exhibit-note">custom text</span>
+          <span class="exhibit-num">00</span>
+          <div><h2 class="exhibit-title">customer identity</h2><p class="exhibit-sub">data pemesan dan deadline</p></div>
         </div>
         <div class="exhibit-body">
-    `;
-    sec.fields.forEach(f => {
-      const isLong = f.long === true;
-      dynamicHtml += `
-        <div class="field">
-          <label for="field_${f.key}">${f.label} <span class="default-hint">(default: ${f.def})</span></label>
-      `;
-      if(isLong){
-        dynamicHtml += `<textarea id="field_${f.key}" rows="3" placeholder="${f.def}">${f.def}</textarea>`;
-      } else {
-        dynamicHtml += `<input type="text" id="field_${f.key}" value="${f.def}" placeholder="${f.def}">`;
-      }
-      dynamicHtml += `</div>`;
-    });
-    dynamicHtml += `</div></div>`;
-  });
-  mount.innerHTML = dynamicHtml;
+          <div class="row2">
+            <label class="field"><span>name <b>*</b></span><input id="customerName" required autocomplete="name" placeholder="nama kamu"></label>
+            <label class="field"><span>username Telegram <b>*</b></span><input id="customerTelegram" required placeholder="@username"></label>
+          </div>
+          <div class="row2">
+            <label class="field"><span>payment</span><input value="qris no rate" disabled></label>
+            <label class="field"><span>deadline <b>*</b></span><input id="deadline" type="date" required></label>
+          </div>
+          <label class="checkbox-line"><input type="checkbox" id="rush"><span><strong>rush order</strong><small>selesai dalam 24 jam sebelum deadline · +Rp4.000</small></span></label>
+        </div>
+      </section>
 
-  // Render swatches
-  function renderSwatches(colors){
-    const preview = document.getElementById('palettePreview');
-    preview.innerHTML = colors.map((c, i) => `
-      <div class="swatch" style="background:${c}">
-        <span>#${i+1}</span>
+      <section class="exhibit">
+        <div class="exhibit-head">
+          <span class="exhibit-num">01</span>
+          <div><h2 class="exhibit-title">website customization</h2><p class="exhibit-sub">opsional dan langsung masuk total</p></div>
+        </div>
+        <div class="exhibit-body">
+          <div class="field">
+            <span>custom color palette</span>
+            <div class="radio-group">
+              <label class="radio-pill active" id="pillNo"><input type="radio" name="recolor" value="no" checked>no</label>
+              <label class="radio-pill" id="pillYes"><input type="radio" name="recolor" value="yes">yes · +Rp2.000</label>
+            </div>
+          </div>
+          <div class="field"><span>default palette</span><div class="swatches" id="defaultSwatches"></div></div>
+          <div class="palette-inputs" id="paletteInputs"></div>
+          <label class="checkbox-line neutral"><input type="checkbox" id="decoration"><span><strong>simple decoration request</strong><small>tambahan dekorasi sederhana · +Rp3.000</small></span></label>
+          <label class="field decoration-note" id="decorationNoteWrap" hidden><span>decoration note <b>*</b></span><textarea id="decorationNote" rows="3" placeholder="jelaskan dekorasi sederhana yang diinginkan"></textarea></label>
+        </div>
+      </section>
+
+      <div id="dynamicSections"></div>
+
+      <section class="exhibit" id="mediaSection">
+        <div class="exhibit-head"><span class="exhibit-num" id="mediaNumber"></span><div><h2 class="exhibit-title">photos &amp; background music</h2><p class="exhibit-sub">dikirim terpisah lewat Telegram</p></div></div>
+        <div class="exhibit-body">
+          <div class="note-block"><strong id="mediaText"></strong><span>Jangan upload di halaman ini. Setelah submit, kirim file sebagai dokumen dan beri nomor urutan pemakaian.</span></div>
+          <label class="field"><span>media order note</span><textarea id="mediaNote" rows="3" placeholder="contoh: foto 01 untuk cover, lagu 01 untuk background"></textarea></label>
+        </div>
+      </section>
+
+      <section class="exhibit" id="linkSection">
+        <div class="exhibit-head"><span class="exhibit-num" id="linkNumber"></span><div><h2 class="exhibit-title">website link</h2><p class="exhibit-sub">dua opsi link wajib diisi</p></div></div>
+        <div class="exhibit-body">
+          <label class="field"><span>website title <b>*</b></span><input id="websiteTitle" required placeholder="judul yang tampil di tab browser"></label>
+          <label class="field"><span>custom link option 01 <b>*</b></span><span class="link-suffix"><input id="linkOne" required placeholder="nama-link"><i>.netlify.app</i></span></label>
+          <label class="field"><span>custom link option 02 <b>*</b></span><span class="link-suffix"><input id="linkTwo" required placeholder="nama-link-alternatif"><i>.netlify.app</i></span></label>
+          <p class="default-hint">berikan dua opsi karena satu nama link hanya dapat digunakan oleh satu website.</p>
+        </div>
+      </section>
+
+      <div class="generate-block">
+        <button type="submit" class="btn" id="submitButton">submit</button>
+        <p>tekan submit → teks pesanan tersalin → chat <a href="https://t.me/mirssy" target="_blank" rel="noopener">t.me/mirssy</a> terbuka → paste dan lampirkan media.</p>
+        <p class="form-error" id="formError" role="alert" hidden></p>
       </div>
-    `).join('');
-  }
-  renderSwatches(DEFAULT_PALETTE);
+    </form>
 
-  // Recolor panel rows
-  const recolorRows = document.getElementById('recolorRows');
-  recolorRows.innerHTML = DEFAULT_PALETTE.map((c, i) => `
-    <div class="recolor-row">
-      <span>warna #${i+1}</span>
-      <input type="color" id="picker_${i}" value="${c}">
-      <input type="text" id="hex_${i}" value="${c}" style="padding:4px 8px; font-size:12px; border-radius:6px; border:1px solid var(--line); font-family:monospace;">
-    </div>
-  `).join('');
+    <section class="output-card" id="outputCard" hidden>
+      <div class="output-head"><h2>form kamu</h2><span id="sendStatus"></span></div>
+      <pre id="outputText" tabindex="0"></pre>
+      <div class="output-actions">
+        <button type="button" class="btn secondary" id="copyButton">salin teks lagi</button>
+        <a class="btn" href="https://t.me/mirssy" target="_blank" rel="noopener">buka t.me/mirssy</a>
+      </div>
+      <p id="resultMessage" role="status"></p>
+    </section>
+  </main>
 
-  DEFAULT_PALETTE.forEach((c, i) => {
-    const picker = document.getElementById('picker_' + i);
-    const hex = document.getElementById('hex_' + i);
-    picker.addEventListener('input', (e) => {
-      hex.value = e.target.value.toUpperCase();
-      customPalette[i] = hex.value;
-      renderSwatches(customPalette);
-    });
-    hex.addEventListener('input', (e) => {
-      if(/^#[0-9A-Fa-f]{6}$/.test(e.target.value)){
-        picker.value = e.target.value;
-        customPalette[i] = e.target.value.toUpperCase();
-        renderSwatches(customPalette);
-      }
-    });
-  });
-
-  // Radio triggers
-  const optPaletteDefault = document.getElementById('optPaletteDefault');
-  const optPaletteCustom = document.getElementById('optPaletteCustom');
-  const recolorPanel = document.getElementById('recolorPanel');
-
-  const optSpeedReg = document.getElementById('optSpeedReg');
-  const optSpeedRush = document.getElementById('optSpeedRush');
-
-  function updatePrice(){
-    const isCustom = document.querySelector('input[name="palette_mode"]:checked').value === 'custom';
-    const isRush = document.querySelector('input[name="speed_mode"]:checked').value === 'rush';
-
-    let total = BASE_PRICE;
-    if(isCustom) total += RECOLOR_FEE;
-    if(isRush) total += RUSH_FEE;
-
-    const formatted = 'Rp ' + total.toLocaleString('id-ID');
-    document.getElementById('topPrice').textContent = formatted;
-    document.getElementById('bottomPrice').textContent = formatted;
-
-    if(isCustom){
-      optPaletteCustom.classList.add('selected');
-      optPaletteDefault.classList.remove('selected');
-      recolorPanel.classList.add('active');
-      renderSwatches(customPalette);
-    } else {
-      optPaletteDefault.classList.add('selected');
-      optPaletteCustom.classList.remove('selected');
-      recolorPanel.classList.remove('active');
-      renderSwatches(DEFAULT_PALETTE);
-    }
-
-    if(isRush){
-      optSpeedRush.classList.add('selected');
-      optSpeedReg.classList.remove('selected');
-    } else {
-      optSpeedReg.classList.add('selected');
-      optSpeedRush.classList.remove('selected');
-    }
-  }
-
-  document.querySelectorAll('input[name="palette_mode"], input[name="speed_mode"]').forEach(r => {
-    r.addEventListener('change', updatePrice);
-  });
-
-  // Submit Handler
-  document.getElementById('orderForm').addEventListener('submit', function(e){
-    e.preventDefault();
-
-    const custTelegram = document.getElementById('cust_telegram').value.trim();
-    const custName = document.getElementById('cust_name').value.trim();
-    const isCustom = document.querySelector('input[name="palette_mode"]:checked').value === 'custom';
-    const isRush = document.querySelector('input[name="speed_mode"]:checked').value === 'rush';
-    const customLink = document.getElementById('custom_link').value.trim();
-    const photoNote = document.getElementById('photo_note').value.trim();
-    const songTitle = document.getElementById('song_title').value.trim();
-
-    let total = BASE_PRICE;
-    if(isCustom) total += RECOLOR_FEE;
-    if(isRush) total += RUSH_FEE;
-
-    let orderText = `FORMAT ORDER — ${CATALOG_TITLE.toUpperCase()}\n`;
-    orderText += `====================================\n`;
-    orderText += `• Pemesan: ${custName} (${custTelegram})\n`;
-    orderText += `• Link Request: ${customLink}.netlify.app\n`;
-    orderText += `• Proses: ${isRush ? 'KILAT (Hitungan Jam)' : 'Reguler (1-2 Hari)'}\n`;
-    orderText += `• Palet Warna: ${isCustom ? 'Custom (' + customPalette.join(', ') + ')' : 'Original Default'}\n`;
-    if(songTitle) orderText += `• Background Music: ${songTitle}\n`;
-    if(photoNote) orderText += `• Catatan Foto: ${photoNote}\n`;
-    orderText += `• Total Tagihan: Rp ${total.toLocaleString('id-ID')}\n`;
-    orderText += `====================================\n\n`;
-
-    orderText += `RINCIAN ISI KONTEN WEBSITE:\n`;
-    SECTIONS.forEach(sec => {
-      orderText += `\n[${sec.id}] ${sec.title.toUpperCase()}\n`;
-      sec.fields.forEach(f => {
-        const val = document.getElementById('field_' + f.key).value.trim();
-        orderText += `• ${f.label}: ${val || f.def}\n`;
-      });
-    });
-
-    orderText += `\n====================================\n`;
-    orderText += `Foto & File MP3 akan dilampirkan langsung di chat Telegram ini.`;
-
-    // Copy to clipboard
-    navigator.clipboard.writeText(orderText).then(() => {
-      const toast = document.getElementById('toastMsg');
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-        window.open('https://t.me/' + TELEGRAM_USERNAME, '_blank');
-      }, 1200);
-    }).catch(() => {
-      alert('Format order berhasil disalin! Silakan kirimkan ke @' + TELEGRAM_USERNAME + ' di Telegram.');
-      window.open('https://t.me/' + TELEGRAM_USERNAME, '_blank');
-    });
-  });
-
-})();
-</script>
-
+  <footer>𓏲 · thank you for ordering with liltz · 𓏲</footer>
+  <script src="app.js"></script>
 </body>
 </html>
