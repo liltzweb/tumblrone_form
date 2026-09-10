@@ -10,7 +10,7 @@ window.FORM_CONFIG = {
   "context": {
     "formCode": "tumblrone-2026-09",
     "motif": "🎟️",
-    "mediaDescription": "kirim 1 foto profil, 1 cover banner, dan foto-foto scene/post Tumblr (bisa berupa foto bersama atau memori)"
+    "mediaDescription": "kirim 2 foto profil (creator & recipient), dan foto-foto post Tumblr (photo-entry, photo-list, photo-01, photo-02, photo-final)"
   },
   "theme": {
     "palette": {
@@ -27,244 +27,316 @@ window.FORM_CONFIG = {
   },
   "sections": [
     {
-      "id": "sec_profile",
-      "title": "Tumblr Profile & Header",
-      "subtitle": "identitas dashboard tumblr di bagian atas",
+      "id": "sec_identity",
+      "title": "Core Tumblr Identity",
+      "subtitle": "username, nama profil, dan tanggal",
       "fields": [
         {
-          "id": "blog_title",
-          "label": "blog username / title",
+          "id": "creator_name",
+          "label": "creator name & username (sender)",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. keith's space / @keithliltz",
-          "description": "Nama blog atau username Tumblr di header"
+          "placeholder": "e.g. Keith. · @keonho",
+          "description": "Nama pengirim dan username Tumblr"
         },
         {
-          "id": "blog_bio",
-          "label": "blog bio / description",
-          "type": "textarea",
-          "required": true,
-          "placeholder": "e.g. just a digital sanctuary for our shared memories, inside jokes, and quiet moments.",
-          "description": "Deskripsi singkat profil blog"
-        },
-        {
-          "id": "avatar_img",
-          "label": "avatar / profile photo",
+          "id": "recipient_name",
+          "label": "recipient name & username (crush/partner)",
           "type": "text",
           "required": true,
-          "placeholder": "link gdrive / telegram photo",
-          "description": "Foto profil Tumblr"
+          "placeholder": "e.g. keisha! · @kya",
+          "description": "Nama pasangan dan username Tumblr"
         },
         {
-          "id": "banner_img",
-          "label": "header banner image (optional)",
+          "id": "entry_date",
+          "label": "date stamp / anniversary date",
           "type": "text",
-          "required": false,
-          "placeholder": "link banner atau biarkan default",
-          "description": "Foto banner header (opsional)"
+          "required": true,
+          "placeholder": "e.g. September 1, 2026",
+          "description": "Tanggal postingan / anniversary"
+        },
+        {
+          "id": "avatars_link",
+          "label": "profile photos / avatars (link)",
+          "type": "text",
+          "required": true,
+          "placeholder": "link gdrive / telegram (foto sender & recipient)",
+          "description": "Foto profil Tumblr untuk kedua pihak"
         }
       ]
     },
     {
       "id": "sec_scene1",
-      "title": "Scene 1: Introduction Post & Tags",
-      "subtitle": "post pertama pembuka feed Tumblr",
+      "title": "Scene 1: Masterpost Opening & Comments",
+      "subtitle": "post pembuka dashboard, masterpost badge, foto & komentar",
       "fields": [
         {
-          "id": "s1_date",
-          "label": "post timestamp / date",
+          "id": "s1_badge",
+          "label": "masterpost badge text",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. Sept 10, 2024 · 11:42 PM",
-          "description": "Waktu posting"
+          "placeholder": "e.g. private archive, for your eyes only",
+          "description": "Badge di atas judul postingan"
         },
         {
           "id": "s1_title",
-          "label": "post title",
+          "label": "main title",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. CHAPTER ONE: WHERE IT ALL BEGAN",
-          "description": "Judul postingan pembuka"
+          "placeholder": "e.g. KEITH'S FAVORITES",
+          "description": "Judul besar post pembuka"
         },
         {
-          "id": "s1_body",
-          "label": "post content / text",
-          "type": "textarea",
+          "id": "s1_subtitle",
+          "label": "main subtitle",
+          "type": "text",
           "required": true,
-          "placeholder": "Ceritakan awal mula, pertemuan pertama, atau momen berharga kalian...",
-          "description": "Isi cerita/wording postingan pertama"
+          "placeholder": "e.g. a very biased list. • made with love",
+          "description": "Sub-judul di bawah judul besar"
+        },
+        {
+          "id": "s1_photo_caption",
+          "label": "photo caption",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. 3 months in and i still take photos of you without you noticing",
+          "description": "Caption foto pembuka"
         },
         {
           "id": "s1_tags",
-          "label": "post tags (#)",
+          "label": "tumblr tags (#)",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. #us #our story #since 2023 #memories",
-          "description": "Tagar Tumblr di bawah post"
+          "placeholder": "e.g. #keisha! #favorites #3 months mensive #archive #only you",
+          "description": "Tagar Tumblr di bawah postingan"
+        },
+        {
+          "id": "s1_comment1",
+          "label": "drawer comment 1 (recipient)",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. wait you really made a whole tumblr dashboard for me?? 😭",
+          "description": "Komentar pertama dari pasangan di notes drawer"
+        },
+        {
+          "id": "s1_comment2",
+          "label": "drawer comment 2 (sender OP)",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. had to do it right. read the whole thing :)",
+          "description": "Balasan pengirim di notes drawer"
         }
       ]
     },
     {
       "id": "sec_scene2",
-      "title": "Scene 2: Tap-to-Reveal Favorites List",
-      "subtitle": "list interaktif hal-hal favorit yang bisa di-tap",
+      "title": "Scene 2: Favorites Archive (4 Evidence Items)",
+      "subtitle": "4 hal/momen favorit interaktif yang bisa dibuka",
       "fields": [
         {
-          "id": "s2_list_title",
-          "label": "favorites list title",
+          "id": "s2_item1_text",
+          "label": "evidence 1 text & tag",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. KEITH'S FAVORITES / THINGS I LOVE ABOUT YOU",
-          "description": "Judul list favorit/suka"
+          "placeholder": "e.g. eating pizza and looking at you (tag: favorite dinner spot)",
+          "description": "Hal favorit ke-1"
         },
         {
-          "id": "s2_item1",
-          "label": "favorite item 1",
+          "id": "s2_item2_text",
+          "label": "evidence 2 text & tag",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. your contagious laugh when you watch sitcoms",
-          "description": "Poin favorit ke-1"
+          "placeholder": "e.g. your laugh when you think nobody's listening (tag: candid audio)",
+          "description": "Hal favorit ke-2"
         },
         {
-          "id": "s2_item2",
-          "label": "favorite item 2",
+          "id": "s2_item3_text",
+          "label": "evidence 3 text & tag",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. late night calls discussing random universe theories",
-          "description": "Poin favorit ke-2"
+          "placeholder": "e.g. holding your cold hands in winter (tag: top 3 feeling)",
+          "description": "Hal favorit ke-3"
         },
         {
-          "id": "s2_item3",
-          "label": "favorite item 3",
+          "id": "s2_item4_text",
+          "label": "evidence 4 text & tag",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. that warm smile every time you see me",
-          "description": "Poin favorit ke-3"
+          "placeholder": "e.g. the way you exist in my life (tag: all-time best)",
+          "description": "Hal favorit ke-4"
         },
         {
-          "id": "s2_item4",
-          "label": "favorite item 4",
+          "id": "s2_tags",
+          "label": "tumblr tags (#)",
           "type": "text",
-          "required": false,
-          "placeholder": "e.g. how caring and gentle you always are",
-          "description": "Poin favorit ke-4 (opsional)"
-        },
-        {
-          "id": "s2_item5",
-          "label": "favorite item 5",
-          "type": "text",
-          "required": false,
-          "placeholder": "e.g. our random matcha and coffee dates",
-          "description": "Poin favorit ke-5 (opsional)"
+          "required": true,
+          "placeholder": "e.g. #text post #confessions #keisha!! #evidence",
+          "description": "Tagar Tumblr post 2"
         }
       ]
     },
     {
       "id": "sec_scene3",
-      "title": "Scene 3: Interactive Tumblr Poll (3 Options)",
-      "subtitle": "fitur polling interaktif Tumblr dengan 3 pilihan jawaban",
+      "title": "Scene 3: Tumblr Interactive Poll (Post 03)",
+      "subtitle": "pertanyaan poll, 3 opsi jawaban, hasil reaksi, dan caption foto",
       "fields": [
         {
-          "id": "s3_poll_question",
+          "id": "s3_question",
           "label": "poll question",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. what is our ultimate favorite date spot?",
+          "placeholder": "e.g. who is literally all i think about lately?",
           "description": "Pertanyaan polling"
         },
         {
-          "id": "s3_poll_opt1",
-          "label": "poll option 1",
+          "id": "s3_opt1",
+          "label": "poll option 1 (correct)",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. Cozy Cafe & Matcha Latte",
-          "description": "Pilihan polling 1"
+          "placeholder": "e.g. keisha!",
+          "description": "Pilihan 1 (opsi benar)"
         },
         {
-          "id": "s3_poll_opt2",
+          "id": "s3_opt2",
           "label": "poll option 2",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. Late Night Street Food Hunt",
-          "description": "Pilihan polling 2"
+          "placeholder": "e.g. also keisha!",
+          "description": "Pilihan 2"
         },
         {
-          "id": "s3_poll_opt3",
+          "id": "s3_opt3",
           "label": "poll option 3",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. Staying in & Watching Movies",
-          "description": "Pilihan polling 3"
+          "placeholder": "e.g. definitely keisha!",
+          "description": "Pilihan 3"
+        },
+        {
+          "id": "s3_verdict",
+          "label": "poll resolution / verdict text",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "e.g. correct. it's keisha. as if it could ever be anyone else.",
+          "description": "Teks respon ketika opsi diklik"
+        },
+        {
+          "id": "s3_caption",
+          "label": "photo caption",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. the prettiest girl in my camera roll, no competition",
+          "description": "Caption foto di bawah polling"
         }
       ]
     },
     {
       "id": "sec_scene4",
-      "title": "Scene 4: Milestone Tracker & Photo Moments",
-      "subtitle": "pencapaian/tonggak hubungan & foto memori",
+      "title": "Scene 4: Milestone Tracker & Timeline (Post 04)",
+      "subtitle": "3 tahapan milestone hubungan, pesan tanggal, dan foto kenangan",
       "fields": [
         {
-          "id": "s4_m1_title",
-          "label": "milestone 1 (title & date)",
+          "id": "s4_eyebrow",
+          "label": "timeline eyebrow text",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. Day One - First Met (12 Oct 2023)",
-          "description": "Milestone ke-1"
+          "placeholder": "e.g. HOW LONG HAVE WE BEEN US?",
+          "description": "Judul eyebrow milestone"
         },
         {
-          "id": "s4_m2_title",
-          "label": "milestone 2 (title & date)",
+          "id": "s4_m1",
+          "label": "milestone 1 (month 1)",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. Official Anniversary (24 Dec 2023)",
-          "description": "Milestone ke-2"
+          "placeholder": "e.g. the beginning.",
+          "description": "Teks milestone 1"
         },
         {
-          "id": "s4_m3_title",
-          "label": "milestone 3 (title & date)",
+          "id": "s4_m2",
+          "label": "milestone 2 (month 2)",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. 500 Days of Us & Beyond",
-          "description": "Milestone ke-3"
+          "placeholder": "e.g. getting closer.",
+          "description": "Teks milestone 2"
         },
         {
-          "id": "s4_photos",
-          "label": "post photos (links)",
+          "id": "s4_m3_badge",
+          "label": "milestone 3 badge title",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. 03 MONTHS WITH YOU",
+          "description": "Judul badge milestone 3"
+        },
+        {
+          "id": "s4_m3_msg",
+          "label": "milestone 3 message",
           "type": "textarea",
           "required": true,
-          "placeholder": "Link Google Drive / Telegram untuk foto-foto yang dipajang di post ini",
-          "description": "Foto-foto untuk postingan milestone"
+          "placeholder": "e.g. that's today. and you're still the best thing that's ever happened to me.",
+          "description": "Pesan milestone hari ini"
+        },
+        {
+          "id": "s4_caption",
+          "label": "milestone photo caption",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. three months of late night dates and i still get butterflies",
+          "description": "Caption foto milestone"
         }
       ]
     },
     {
       "id": "sec_scene5",
-      "title": "Scene 5: Verified Truth Confession & Love Letter",
-      "subtitle": "pesan penutup mendalam & notes Tumblr",
+      "title": "Scene 5: Verified Truth Confession (Post 05)",
+      "subtitle": "pertanyaan penutup, verified truth banner, pesan cinta & closing comments",
       "fields": [
         {
-          "id": "s5_truth_headline",
-          "label": "confession headline / prompt",
+          "id": "s5_prompt",
+          "label": "final question / prompt",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. truth or dare? · truth: do you really love me that much?",
-          "description": "Prompt pertanyaan/kejujuran"
+          "placeholder": "e.g. so, keisha!... who's the only one keith will ever want?",
+          "description": "Pertanyaan penutup"
         },
         {
-          "id": "s5_truth_answer",
-          "label": "verified answer / letter",
+          "id": "s5_banner",
+          "label": "verified truth banner",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. VERIFIED TRUTH: keisha! always was, always will be.",
+          "description": "Banner kebenaran terverifikasi"
+        },
+        {
+          "id": "s5_message",
+          "label": "love letter / final message",
           "type": "textarea",
           "required": true,
-          "placeholder": "e.g. obviously, had to make sure you know you are my favorite person in the entire world...",
-          "description": "Jawaban jujur / surat cinta penutup"
+          "placeholder": "e.g. happy 3 months, keisha! you're stuck with me now :)",
+          "description": "Surat / pesan penutup"
         },
         {
-          "id": "s5_signoff",
-          "label": "closing sign-off & date",
+          "id": "s5_caption",
+          "label": "final photo caption",
           "type": "text",
           "required": true,
-          "placeholder": "e.g. forever yours, Keith · 2026",
-          "description": "Nama pengirim / penutup"
+          "placeholder": "e.g. to many more months, more memories, more of you.",
+          "description": "Caption foto penutup"
+        },
+        {
+          "id": "s5_comment_recip",
+          "label": "final drawer comment (recipient)",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. happy 3 months keith 🥺 i love you so much",
+          "description": "Komentar penutup pasangan di notes"
+        },
+        {
+          "id": "s5_comment_sender",
+          "label": "final drawer reply (sender OP)",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. i love you more. always.",
+          "description": "Balasan penutup pengirim di notes"
         }
       ]
     }
