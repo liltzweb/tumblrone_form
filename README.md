@@ -8,7 +8,7 @@ Form pemesanan publik untuk website **tumblrone** milik katalog liltz. Website s
 
 1. Isi form.
 2. Tekan **salin & buka Telegram**.
-3. Ringkasan order disalin ke clipboard dan chat [@mirssy](https://t.me/mirssy) dibuka.
+3. Ringkasan order disalin ke clipboard dan chat [@reeumen](https://t.me/reeumen) dibuka.
 4. Paste ringkasan, kirim, lalu lampirkan media secara berurutan.
 
 ## Harga
