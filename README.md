@@ -15,7 +15,6 @@ Form pemesanan publik untuk website **tumblrone** milik katalog liltz. Website s
 
 - Base: **Rp10.000**
 - Recolor: **+Rp2.000**
-- Simple decoration: **+Rp3.000**
 - Rush <24 jam: **+Rp4.000**
 
 ## Media
